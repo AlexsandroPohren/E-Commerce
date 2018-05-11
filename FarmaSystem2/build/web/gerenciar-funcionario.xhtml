@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="template.xhtml"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:fscomp="http://xmlns.jcp.org/jsf/composite/fscomp">
+
+
+    <h:form>
+        <p:messages autoUpdate="true" showDetail="true"></p:messages>
+        <p:fieldset legend="Gerenciar Funcionario">           
+                <fscomp:toolbarCrud crudBean="#{atendenteBean}"/>         
+            <p:panelGrid columns="2" rendered="#{atendenteBean.busca == false}">
+                <h:outputLabel value="Nome"></h:outputLabel>
+                <p:inputText value="#{atendenteBean.entidade.login}"></p:inputText>
+                <h:outputLabel value="Senha"></h:outputLabel>
+                <p:password value="#{atendenteBean.entidade.senha}"></p:password>
+            </p:panelGrid>
+            <p:dataTable value="#{atendenteBean.entidades}" var="u" rendered="#{atendenteBean.busca == true}">
+                <p:column>
+                    <p:commandButton value="Editar" action="#{atendenteBean.editar(u)}" update="@form"></p:commandButton>
+                    <p:commandButton value="Deletar" action="#{atendenteBean.deletar(u)}" update="@form"></p:commandButton>
+                </p:column>
+                <h:outputLabel></h:outputLabel>
+                <p:column headerText="Login">
+                    #{u.login}
+                </p:column>
+                <p:column headerText="Senha">
+                    #{u.senha}
+                </p:column>
+            </p:dataTable>
+        </p:fieldset>
+    </h:form>
+
+</ui:decorate>
+

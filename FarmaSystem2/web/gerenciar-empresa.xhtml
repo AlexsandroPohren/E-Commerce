@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="template.xhtml"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:fscomp="http://xmlns.jcp.org/jsf/composite/fscomp">
+                 
+     <h:form>
+
+        <p:messages autoUpdate="true" showDetail="true"></p:messages>
+        <p:fieldset legend="Empresa">
+            
+            <fscomp:toolbarCrud crudBean="#{empresaBean}"/>
+            
+            <p:panelGrid columns="2" rendered="#{empresaBean.busca == false}">
+                <h:outputLabel value="Nome"></h:outputLabel>
+                <p:inputText value="#{empresaBean.entidade.razaoSocial}"></p:inputText>                
+                <h:outputLabel value="Cep"></h:outputLabel>
+                <p:inputText value="#{empresaBean.entidade.endereco.cep}"></p:inputText>
+                <h:outputLabel value="Cidade"></h:outputLabel>
+                <p:inputText value="#{empresaBean.entidade.endereco.cidade}"></p:inputText>
+                <h:outputLabel value="Estado"></h:outputLabel>
+                <p:inputText value="#{empresaBean.entidade.endereco.estado.nome}"></p:inputText>
+                <h:outputLabel value="Rua"></h:outputLabel>
+                <p:inputText value="#{empresaBean.entidade.endereco.logradouro}"></p:inputText>
+                <h:outputLabel value="Celular"></h:outputLabel>
+                <p:inputText value="#{empresaBean.entidade.contato.celular}"></p:inputText>
+                <h:outputLabel value="E-mail"></h:outputLabel>
+                <p:inputText value="#{empresaBean.entidade.contato.email}"></p:inputText>
+                <h:outputLabel value="Telefone"></h:outputLabel>
+                <p:inputText value="#{empresaBean.entidade.contato.telefone}"></p:inputText>
+                                
+            </p:panelGrid>
+            <p:dataTable value="#{empresaBean.entidades}" var="empresa" rendered="#{empresaBean.busca == true}">
+
+                <p:column>
+                    <p:commandButton value="Deletar" action="#{empresaBean.deletar(empresa)}" update="@form"></p:commandButton>
+                    <p:commandButton value="Editar" action="#{empresaBean.editar(empresa)}" update="@form"></p:commandButton>
+                </p:column>
+                <p:column headerText="Nome" sortBy="#{empresas.razaoSocial}">
+                    <h:outputText value="#{empresas.razaoSocial}"></h:outputText>
+                </p:column>
+                <p:column headerText="Telefone" sortBy="#{empresas.contato.telefone}">
+                    <h:outputText value="#{empresas.fabricante}"></h:outputText>
+                </p:column>
+                <p:column headerText="Categoria" sortBy="#{empresas.categoria}">
+                    <h:outputText value="#{empresas.categoria}"></h:outputText>
+                </p:column>
+                <p:column headerText="Valor" sortBy="#{empresas.valor}">
+                    <h:outputText value="#{empresas.valor}"></h:outputText>
+                </p:column>
+            </p:dataTable>
+        </p:fieldset>
+    </h:form>
+    
+</ui:decorate>
+
+
